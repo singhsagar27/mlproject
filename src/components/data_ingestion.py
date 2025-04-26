@@ -1,3 +1,6 @@
+# Read the data from data source that is created by big data/ cloud team using data ingestion,
+# Our aim :- To split and train the data
+
 import os
 import sys
 from src.exception import CustomException
