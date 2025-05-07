@@ -3,6 +3,7 @@
 
 import os
 import sys
+from src.components.model_trainer import ModelTrainer
 from src.exception import CustomException
 from src.logger import logging
 
@@ -51,10 +52,26 @@ class DataIngestion:
             raise CustomException(e, sys)
 
 if __name__ == "__main__":
+
+    # 1. Data ingestion is the first step in the pipeline
+    # It is responsible for fetching the data from the source and saving it in the required format
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
 
+    # 2. Data transformation is the second step in the pipeline
+    # It is responsible for transforming the data into the required format
+    # It is responsible for preprocessing the data and saving the preprocessor object and splitting the data into train and test sets
+    # It is responsible for saving the transformed data in the required format
     data_transformation = DataTransformation()
     data_transformation.initiate_data_transformation(train_data,test_data)
+    # get the transformed data train and test data
+    train_array, test_array, _ = data_transformation.initiate_data_transformation(train_data, test_data)
+
+    # 3. Model trainer is the third step in the pipeline
+    # It is responsible for training the model and saving the trained model
+    # It is responsible for evaluating the model and saving the best model
+    modeltrainer = ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_array, test_array))
+
 
 
